@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/pg": "^8.11.10",
+    "@types/sequelize": "^4.28.20",
+    "express": "^4.21.1",
+    "pg": "^8.13.1",
+    "sequelize": "^6.37.5",
+    "sequelize-cli": "^6.6.2",
+    "ts-node": "^10.9.2"
+  }
+}
