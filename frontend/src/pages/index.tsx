@@ -57,13 +57,17 @@ const Index = () => {
 
       {!loading && !error && (
         <div className="overflow-x-auto">
+          <button className="btn btn-outline btn-sm btn-primary mb-5">
+            Primary
+          </button>
           <table className="table">
             <thead>
-              <tr>
+              <tr className="bg-primary-content">
                 <th>No</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Completed</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -73,7 +77,36 @@ const Index = () => {
                     <th>{Index + 1}</th>
                     <td>{todo.title}</td>
                     <td>{todo.description}</td>
-                    <td>{!todo ? "completed" : "not complete"}</td>
+                    <td>{todo.completed ? "completed" : "not complete"}</td>
+                    <td>
+                      {todo.completed ? (
+                        "no action"
+                      ) : (
+                        <form
+                          action={`http://localhost:3000/todo/${todo.id}/mark-done`}
+                          method="post"
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            fetch(
+                              `http://localhost:3000/todo/${todo.id}/mark-done`,
+                              { method: "PATCH" }
+                            ).then((response) => {
+                              if (response.ok) {
+                                alert("todo marked as completed");
+                                window.location.reload();
+                              }
+                            });
+                          }}
+                        >
+                          <button
+                            type="submit"
+                            className="btn btn-outline btn-success btn-sm"
+                          >
+                            Mark Done
+                          </button>
+                        </form>
+                      )}
+                    </td>
                   </tr>
                 );
               })}
