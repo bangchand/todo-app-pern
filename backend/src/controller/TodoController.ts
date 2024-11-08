@@ -12,3 +12,25 @@ export const getAllTodo = async (
     message: "success",
   });
 };
+
+export const markDoneTodo = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { id } = req.params;
+
+  try {
+    const todo = await Todo.findByPk(id);
+    if (todo) {
+      todo.completed = true;
+      await todo.save();
+      res.status(200).json({
+        data: todo,
+        message: "success mark todo",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("server error");
+  }
+};
